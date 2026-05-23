@@ -1,8 +1,8 @@
 ## VPC PROD ##
 
 module "vpc_prod" {
-  source                  = "../../infrastructure-modules/aws-vpc"
-  cidr_block              = "10.1.0.0/16"
+  source     = "../../infrastructure-modules/aws-vpc"
+  cidr_block = "10.1.0.0/16"
 
   attributes = ["prod"]
   context    = module.this.context
@@ -69,7 +69,7 @@ module "subnets_staging" {
 module "vpc_dev" {
   source     = "../../infrastructure-modules/aws-vpc"
   cidr_block = "10.0.0.0/16"
-  
+
   attributes = ["dev"]
   context    = module.this.context
 

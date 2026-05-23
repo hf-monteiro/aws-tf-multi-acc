@@ -5,13 +5,13 @@ variable "keybase" {
 variable "security_acct_id" {}
 
 variable "aws_default_region" {
-    default = "us-east-1"
+  default = "us-east-1"
 }
 
 variable "terraform_state_bucket" {
-    default = "put info here!"
+  default = "put info here!"
 }
 
 variable "terraform_state_bucket_region" {
-    default = "us-east-1"
+  default = "us-east-1"
 }

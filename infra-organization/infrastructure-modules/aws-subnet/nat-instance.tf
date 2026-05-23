@@ -11,7 +11,7 @@ module "nat_instance_label" {
 locals {
   cidr_block               = var.cidr_block != "" ? var.cidr_block : join("", data.aws_vpc.default.*.cidr_block)
   nat_instance_enabled     = var.nat_instance_enabled ? 1 : 0
-  nat_instance_count       = var.nat_instance_enabled && ! local.use_existing_eips ? length(var.availability_zones) : 0
+  nat_instance_count       = var.nat_instance_enabled && !local.use_existing_eips ? length(var.availability_zones) : 0
   nat_instance_eip_count   = local.use_existing_eips ? 0 : local.nat_instance_count
   instance_eip_allocations = local.use_existing_eips ? data.aws_eip.nat_ips.*.id : aws_eip.nat_instance.*.id
 }
@@ -25,11 +25,12 @@ resource "aws_security_group" "nat_instance" {
 }
 
 resource "aws_security_group_rule" "nat_instance_egress" {
-  count             = local.enabled ? local.nat_instance_enabled : 0
-  description       = "Allow all egress traffic"
-  from_port         = 0
-  to_port           = 0
-  protocol          = "-1"
+  count       = local.enabled ? local.nat_instance_enabled : 0
+  description = "Allow all egress traffic"
+  from_port   = 0
+  to_port     = 0
+  protocol    = "-1"
+  # Lab/demo CIDR: restrict this to trusted networks before production use.
   cidr_blocks       = ["0.0.0.0/0"] #tfsec:ignore:AWS007
   security_group_id = join("", aws_security_group.nat_instance.*.id)
   type              = "egress"
@@ -118,9 +119,10 @@ resource "aws_eip_association" "nat_instance" {
 }
 
 resource "aws_route" "nat_instance" {
-  count                  = local.enabled ? local.nat_instance_count : 0
-  route_table_id         = element(aws_route_table.private.*.id, count.index)
-  instance_id            = element(aws_instance.nat_instance.*.id, count.index)
+  count          = local.enabled ? local.nat_instance_count : 0
+  route_table_id = element(aws_route_table.private.*.id, count.index)
+  instance_id    = element(aws_instance.nat_instance.*.id, count.index)
+  # Lab/demo CIDR: restrict this to trusted networks before production use.
   destination_cidr_block = "0.0.0.0/0"
   depends_on             = [aws_route_table.private]
 

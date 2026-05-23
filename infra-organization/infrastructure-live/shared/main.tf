@@ -48,7 +48,7 @@ resource "aws_iam_account_alias" "alias" {
 resource "aws_cloudtrail" "cloudtrail" {
   name                       = "cloudtrail-shared"
   s3_key_prefix              = "shared"
-  s3_bucket_name             = data.terraform_remote_state.security.outputs.cloudtrail_bucket_id 
+  s3_bucket_name             = data.terraform_remote_state.security.outputs.cloudtrail_bucket_id
   enable_log_file_validation = true
   is_multi_region_trail      = true
 }
@@ -76,4 +76,4 @@ module "transit_gateway" {
   create_transit_gateway_route_table                             = true
   create_transit_gateway_vpc_attachment                          = false
   create_transit_gateway_route_table_association_and_propagation = false
-  }
+}

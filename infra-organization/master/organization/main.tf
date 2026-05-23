@@ -172,13 +172,13 @@ data "aws_iam_policy_document" "terragrunt_admin" {
     actions = [
       "dynamodb:TagResource",
       "dynamodb:UntagResource",
-     
+
     ]
 
     resources = [
       "*",
-      
-   
+
+
     ]
   }
 }

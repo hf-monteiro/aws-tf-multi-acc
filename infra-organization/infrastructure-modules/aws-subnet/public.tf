@@ -50,8 +50,9 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route" "public" {
-  count                  = local.public_route_expr_enabled ? 0 : local.enabled_count
-  route_table_id         = join("", aws_route_table.public.*.id)
+  count          = local.public_route_expr_enabled ? 0 : local.enabled_count
+  route_table_id = join("", aws_route_table.public.*.id)
+  # Lab/demo CIDR: restrict this to trusted networks before production use.
   destination_cidr_block = "0.0.0.0/0"
   gateway_id             = var.igw_id
 
@@ -79,8 +80,9 @@ resource "aws_network_acl" "public" {
   subnet_ids = aws_subnet.public.*.id
 
   egress {
-    rule_no    = 100
-    action     = "allow"
+    rule_no = 100
+    action  = "allow"
+    # Lab/demo CIDR: restrict this to trusted networks before production use.
     cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0
@@ -88,8 +90,9 @@ resource "aws_network_acl" "public" {
   }
 
   ingress {
-    rule_no    = 100
-    action     = "allow"
+    rule_no = 100
+    action  = "allow"
+    # Lab/demo CIDR: restrict this to trusted networks before production use.
     cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0

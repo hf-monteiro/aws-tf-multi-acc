@@ -48,7 +48,7 @@ resource "aws_iam_account_alias" "alias" {
 resource "aws_cloudtrail" "cloudtrail" {
   name                       = "cloudtrail-stage"
   s3_key_prefix              = "stage"
-  s3_bucket_name             = data.terraform_remote_state.security.outputs.cloudtrail_bucket_id 
+  s3_bucket_name             = data.terraform_remote_state.security.outputs.cloudtrail_bucket_id
   enable_log_file_validation = true
   is_multi_region_trail      = true
 }

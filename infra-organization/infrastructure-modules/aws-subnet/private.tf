@@ -63,8 +63,9 @@ resource "aws_network_acl" "private" {
   subnet_ids = aws_subnet.private.*.id
 
   egress {
-    rule_no    = 100
-    action     = "allow"
+    rule_no = 100
+    action  = "allow"
+    # Lab/demo CIDR: restrict this to trusted networks before production use.
     cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0
@@ -72,8 +73,9 @@ resource "aws_network_acl" "private" {
   }
 
   ingress {
-    rule_no    = 100
-    action     = "allow"
+    rule_no = 100
+    action  = "allow"
+    # Lab/demo CIDR: restrict this to trusted networks before production use.
     cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 0

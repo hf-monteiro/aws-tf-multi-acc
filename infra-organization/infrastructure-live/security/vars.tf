@@ -1,29 +1,29 @@
 variable "cloudtrail_bucket_name" {
-    default = "put info here!"
+  default = "put info here!"
 }
 
 variable "terraform_state_bucket" {
-    default = "put info here!"
+  default = "put info here!"
 }
 
 variable "terraform_state_bucket_region" {
-    default = "put info here!"
+  default = "put info here!"
 }
 
 variable "aws_default_region" {
-    default = "put info here!"
+  default = "put info here!"
 }
 
 variable "org_name" {
-    default = "put info here!"
+  default = "put info here!"
 }
 
 variable "administrator_default_arn" {
-    default = "arn:aws:iam::aws:policy/AdministratorAccess"
+  default = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 variable "developer_role_name" {
-    default = "Developer"
+  default = "Developer"
 }
 /*
 ## VPC ##
